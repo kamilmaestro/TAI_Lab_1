@@ -35,3 +35,8 @@ li {
 .buttons {
     margin: 0 5px;
 }
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
