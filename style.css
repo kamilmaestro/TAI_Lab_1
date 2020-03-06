@@ -5,3 +5,33 @@ body {
 li {
     display: inline;
 }
+
+.form-group {
+    margin: 5px;
+}
+
+.main-form {
+    margin: 20px;
+    max-width: 500px;
+}
+
+.data {
+    margin: 10px 25px;
+}
+
+.radios {
+    display: flex;
+    margin: 5px 25px;
+}
+
+.radio-option {
+    margin-right: 30px;
+}
+
+.state {
+    margin: 15px 0;
+}
+
+.buttons {
+    margin: 0 5px;
+}
