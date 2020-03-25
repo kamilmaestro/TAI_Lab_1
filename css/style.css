@@ -6,6 +6,10 @@ li {
     display: inline;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .form-group {
     margin: 5px;
 }
@@ -54,4 +58,11 @@ li {
     background-color: dimgrey;
     color: white;
     font-size: 15px;
+}
+
+.scroll {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
 }
