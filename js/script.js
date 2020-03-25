@@ -12,12 +12,14 @@ const userScorePoint = document.querySelector(".userScorePoint");
 
 let index = 0;
 let points = 0;
+let lastCheckedQuestionIndex = 0;
 let currentAnswer = {};
+let isCurrentAnswerChecked = false;
 const FIRST_QUESTION = 0;
 
 (async() => {
     const preQuestions = await fetchData();
-    activateAnswers(answers);
+    activateAnswers();
     setQuestion(FIRST_QUESTION);
 
     function setQuestion(index) {
@@ -41,13 +43,19 @@ const FIRST_QUESTION = 0;
     }
 
     next.addEventListener('click', function (event) {
-        removeMarkFromAnswer(currentAnswer);
-        index++;
-        if (index < preQuestions.length) {
-            setQuestion(index);
-            activateAnswers(answers);
-        } else {
-            finishQuiz();
+        removeMarkFromAnswers(answers);
+        if (isCurrentAnswerChecked || index < lastCheckedQuestionIndex) {
+            removeMarkFromAnswer(currentAnswer);
+            index++;
+            if (index < preQuestions.length) {
+                setQuestion(index);
+                index < lastCheckedQuestionIndex ?
+                    disableAnswers() :
+                    activateAnswers();
+            } else {
+                finishQuiz();
+            }
+            isCurrentAnswerChecked = false;
         }
     });
 
@@ -56,6 +64,8 @@ const FIRST_QUESTION = 0;
             index--;
             setQuestion(index);
             removeMarkFromAnswer(currentAnswer);
+            disableAnswers();
+            isCurrentAnswerChecked = true;
         }
     });
 
@@ -69,7 +79,9 @@ const FIRST_QUESTION = 0;
             markInCorrect(event.target);
         }
         currentAnswer = event.target;
-        disableAnswers(answers);
+        isCurrentAnswerChecked = true;
+        lastCheckedQuestionIndex++;
+        disableAnswers();
     }
 
     function saveDataToLocalStorage() {
@@ -94,7 +106,7 @@ const FIRST_QUESTION = 0;
         let userScorePoint = document.querySelector('.score');
         userScorePoint.innerHTML = points;
         setQuestion(index);
-        activateAnswers(answers);
+        activateAnswers();
         list.style.display = 'block';
         results.style.display = 'none';
     });

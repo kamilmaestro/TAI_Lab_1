@@ -15,6 +15,10 @@ function removeMarkFromAnswer(element) {
     element.classList.remove(isCorrect);
 }
 
+function removeMarkFromAnswers(answers) {
+    [...answers].map(answer => removeMarkFromAnswer(answer));
+}
+
 function setStyleDisplayNone(answers) {
     setStyleDisplayAs('none', answers);
 }
